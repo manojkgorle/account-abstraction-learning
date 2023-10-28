@@ -278,7 +278,6 @@ describe('EntryPoint', function () {
       }
       try {
         await simulateValidation(userOp, entryPoint.address, { gasLimit: 1e6 })
-
         console.log('after first simulation')
         await ethers.provider.send('evm_mine', [])
         await expect(simulateValidation(userOp, entryPoint.address, { gasLimit: 1e6 }))
@@ -458,6 +457,8 @@ describe('EntryPoint', function () {
           verificationGasLimit: 1e6,
           callGasLimit: 1e6
         }, accountOwner, entryPoint)
+        console.log(accountExecFromEntryPoint)
+        
         const beneficiaryAddress = createAddress()
         const countBefore = await counter.counters(account.address)
         // for estimateGas, must specify maxFeePerGas, otherwise our gas check fails
@@ -470,6 +471,8 @@ describe('EntryPoint', function () {
           gasLimit: 1e7
         }).then(async t => await t.wait())
 
+        console.log("benificiary address", beneficiaryAddress)
+        
         const countAfter = await counter.counters(account.address)
         expect(countAfter.toNumber()).to.equal(countBefore.toNumber() + 1)
         console.log('rcpt.gasUsed=', rcpt.gasUsed.toString(), rcpt.transactionHash)

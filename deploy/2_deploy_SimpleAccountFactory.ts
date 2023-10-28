@@ -22,5 +22,4 @@ const deploySimpleAccountFactory: DeployFunction = async function (hre: HardhatR
     })
   console.log('==SimpleAccountFactory addr=', ret.address)
 }
-
 export default deploySimpleAccountFactory

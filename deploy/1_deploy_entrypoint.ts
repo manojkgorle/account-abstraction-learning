@@ -16,13 +16,13 @@ const deployEntryPoint: DeployFunction = async function (hre: HardhatRuntimeEnvi
       deterministicDeployment: true
     })
   console.log('==entrypoint addr=', ret.address)
-/*
+
   const entryPointAddress = ret.address
   const w = await hre.deployments.deploy(
-    'SimpleAccount', {
+    'SimpleAccountFactory', {
       from,
-      args: [entryPointAddress, from],
-      gasLimit: 2e6,
+      args: [entryPointAddress],
+      gasLimit: 6e6,
       deterministicDeployment: true
     })
 
@@ -33,7 +33,7 @@ const deployEntryPoint: DeployFunction = async function (hre: HardhatRuntimeEnvi
     deterministicDeployment: true
   })
   console.log('==testCounter=', t.address)
-  */
+  
 }
 
 export default deployEntryPoint

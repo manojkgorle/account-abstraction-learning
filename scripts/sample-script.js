@@ -14,8 +14,8 @@ async function main () {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Singleton = await hre.ethers.getContractFactory('Singleton')
-  const singleton = await Singleton.deploy()
+  const Singleton = await hre.ethers.getContractFactory('SimpleAccount')
+  const singleton = await Singleton.deploy("0xAaCddd4a3B9CCdC46F56cf1010bf09BC94b677EB")
 
   await singleton.deployed()
 

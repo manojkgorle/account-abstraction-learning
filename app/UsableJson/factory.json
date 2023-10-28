@@ -1,0 +1,7 @@
+{
+    "buildBearFactory": {
+        "address":"0x0C3500277Cd25aa3d9057EA550C17EDB70C9F7E5",
+        "entrypoint": "0xAaCddd4a3B9CCdC46F56cf1010bf09BC94b677EB",
+        "salt": 69
+    }
+}

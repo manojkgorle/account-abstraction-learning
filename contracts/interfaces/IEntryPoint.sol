@@ -172,5 +172,4 @@ interface IEntryPoint is IStakeManager, INonceManager {
      * @param initCode - The constructor code to be passed into the UserOperation.
      */
     function getSenderAddress(bytes memory initCode) external;
-
 }

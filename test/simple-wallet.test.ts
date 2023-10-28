@@ -64,8 +64,8 @@ describe('SimpleAccount', function () {
       ({ proxy: account } = await createAccount(ethersSigner, await ethersSigner.getAddress(), entryPoint))
       counter = await new TestCounter__factory(ethersSigner).deploy()
     })
-
     it('should allow zero value array', async () => {
+      //@todo what is populateTransaction --> populateTransaction  represents the transaction that would need to be signed and submitted to the network to execute METHOD_NAME with args and overrides.
       const counterJustEmit = await counter.populateTransaction.justemit().then(tx => tx.data!)
       const rcpt = await account.executeBatch(
         [counter.address, counter.address],
@@ -111,12 +111,10 @@ describe('SimpleAccount', function () {
     before(async () => {
       entryPointEoa = accounts[2]
       const epAsSigner = await ethers.getSigner(entryPointEoa)
-
       // cant use "SimpleAccountFactory", since it attempts to increment nonce first
       const implementation = await new SimpleAccount__factory(ethersSigner).deploy(entryPointEoa)
       const proxy = await new ERC1967Proxy__factory(ethersSigner).deploy(implementation.address, '0x')
       account = SimpleAccount__factory.connect(proxy.address, epAsSigner)
-
       await ethersSigner.sendTransaction({ from: accounts[0], to: account.address, value: parseEther('0.2') })
       const callGasLimit = 200000
       const verificationGasLimit = 100000
@@ -129,18 +127,19 @@ describe('SimpleAccount', function () {
         verificationGasLimit,
         maxFeePerGas
       }), accountOwner, entryPointEoa, chainId)
-
       userOpHash = await getUserOpHash(userOp, entryPointEoa, chainId)
-
+      
       expectedPay = actualGasPrice * (callGasLimit + verificationGasLimit)
-
+//@todo straight away we called our smart contract account. So, we need some balance to be pre deposited in the smart contract account.
+// Calling using entry point will not deduct balance of the smart contract account as usual
       preBalance = await getBalance(account.address)
       const ret = await account.validateUserOp(userOp, userOpHash, expectedPay, { gasPrice: actualGasPrice })
       await ret.wait()
     })
-
     it('should pay', async () => {
+    
       const postBalance = await getBalance(account.address)
+    
       expect(preBalance - postBalance).to.eql(expectedPay)
     })
 

@@ -54,7 +54,8 @@ const config: HardhatUserConfig = {
     localgeth: { url: 'http://localgeth:8545' },
     goerli: getNetwork('goerli'),
     sepolia: getNetwork('sepolia'),
-    proxy: getNetwork1('http://localhost:8545')
+    proxy: getNetwork1('http://localhost:8545'),
+    buildbear: {url: 'https://rpc.buildbear.io/defensive-obi-wan-kenobi-a7f96775', accounts: ['0xc8daf5f53830c45f7f41dca3b180fb1fa9a9b0bd3b99688e1b9ab6eb8e962e71']}
   },
   mocha: {
     timeout: 10000
